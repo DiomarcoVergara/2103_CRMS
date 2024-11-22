@@ -4,19 +4,21 @@
  */
 package UI;
 
+import Classes.Student;
+import Classes.User;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author RHAINE
  */
 public class Join_Class_form extends javax.swing.JFrame {
+    
 
-    /**
-     * Creates new form Home
-     */
     public Join_Class_form() {
         initComponents();
-    }
 
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,19 +32,14 @@ public class Join_Class_form extends javax.swing.JFrame {
         Logo = new javax.swing.JLabel();
         DashboardLabel = new javax.swing.JLabel();
         Class_listPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         JoinClassLabel = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        Usertxt = new javax.swing.JTextField();
-        SwitchButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         ClassCodetxt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         JoinButton = new javax.swing.JButton();
-        CancelButton = new javax.swing.JButton();
+        CancelJoiinButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,7 +48,7 @@ public class Join_Class_form extends javax.swing.JFrame {
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UI/1mikodiorven.jpg"))); // NOI18N
 
         DashboardLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        DashboardLabel.setText("DASHBOARD");
+        DashboardLabel.setText("JOIN CLASS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -77,63 +74,21 @@ public class Join_Class_form extends javax.swing.JFrame {
 
         Class_listPanel.setBackground(new java.awt.Color(126, 217, 87));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel2.setText("CLASSES");
-
         javax.swing.GroupLayout Class_listPanelLayout = new javax.swing.GroupLayout(Class_listPanel);
         Class_listPanel.setLayout(Class_listPanelLayout);
         Class_listPanelLayout.setHorizontalGroup(
             Class_listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Class_listPanelLayout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jLabel2)
-                .addContainerGap(93, Short.MAX_VALUE))
+            .addGap(0, 217, Short.MAX_VALUE)
         );
         Class_listPanelLayout.setVerticalGroup(
             Class_listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Class_listPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 253, Short.MAX_VALUE)
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         JoinClassLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         JoinClassLabel.setText("Join Class");
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel7.setText("You're currently signed in as");
-
-        SwitchButton.setText("Switch");
-        SwitchButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 0)));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Usertxt))
-                    .addComponent(SwitchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Usertxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(SwitchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -176,12 +131,12 @@ public class Join_Class_form extends javax.swing.JFrame {
             }
         });
 
-        CancelButton.setBackground(new java.awt.Color(0, 102, 0));
-        CancelButton.setForeground(new java.awt.Color(255, 255, 255));
-        CancelButton.setText("Create");
-        CancelButton.addActionListener(new java.awt.event.ActionListener() {
+        CancelJoiinButton.setBackground(new java.awt.Color(0, 102, 0));
+        CancelJoiinButton.setForeground(new java.awt.Color(255, 255, 255));
+        CancelJoiinButton.setText("Cancel");
+        CancelJoiinButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelButtonActionPerformed(evt);
+                CancelJoiinButtonActionPerformed(evt);
             }
         });
 
@@ -191,15 +146,16 @@ public class Join_Class_form extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(CancelButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(JoinButton))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(JoinClassLabel)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(CancelJoiinButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(JoinButton))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(JoinClassLabel)
+                            .addGap(351, 351, 351))))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -207,15 +163,13 @@ public class Join_Class_form extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(JoinClassLabel)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JoinButton)
-                    .addComponent(CancelButton))
-                .addContainerGap(39, Short.MAX_VALUE))
+                    .addComponent(CancelJoiinButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -241,13 +195,64 @@ public class Join_Class_form extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CancelButtonActionPerformed
-
     private void JoinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoinButtonActionPerformed
-        // TODO add your handling code here:
+        // Retrieve the class code from the text field
+        String classCode = ClassCodetxt.getText().trim();
+
+        // Check if the field is empty
+        if (classCode.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Class code cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Assuming a Student object is initialized
+        try {
+            // Example: assuming a logged-in student instance is available
+            Student currentStudent = new Student(); // Replace with actual student reference
+            
+            // Call the joinClass method
+            boolean success = currentStudent.joinClass(classCode);
+
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Successfully joined the class!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid class code or already joined!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "An error occurred while joining the class: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_JoinButtonActionPerformed
+
+    private void CancelJoiinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelJoiinButtonActionPerformed
+      try {
+        // Retrieve the logged-in user
+        User currentUser = User.getLoggedInUser();
+
+        if (currentUser != null && currentUser.getRole() != null && "Student".equalsIgnoreCase(currentUser.getRole())) {
+            // Check if the student is enrolled in any class
+            boolean isEnrolled = currentUser.isEnrolledInClass(); // Using method from User class
+
+            if (isEnrolled) {
+                // Redirect to the student's dashboard for enrolled classes
+                StudentDashboard studentDashboard = new StudentDashboard();
+                studentDashboard.setVisible(true);
+                this.dispose(); // Close the current window
+            } else {
+                // Redirect to the join class dashboard
+                Join_dashboard joinDashboard = new Join_dashboard();
+                joinDashboard.setVisible(true);
+                this.dispose(); // Close the current window
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "You must be logged in as a student.", "Access Denied", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+
+    }//GEN-LAST:event_CancelJoiinButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,22 +353,17 @@ public class Join_Class_form extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton CancelButton;
+    private javax.swing.JButton CancelJoiinButton;
     private javax.swing.JTextField ClassCodetxt;
     private javax.swing.JPanel Class_listPanel;
     private javax.swing.JLabel DashboardLabel;
     private javax.swing.JButton JoinButton;
     private javax.swing.JLabel JoinClassLabel;
     private javax.swing.JLabel Logo;
-    private javax.swing.JButton SwitchButton;
-    private javax.swing.JTextField Usertxt;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,6 +2,8 @@ package Classes;
 
 import DB.DBConnect;
 import UI.Create_Class_form;
+import UI.Join_Class_form;
+import UI.StudentDashboard;
 import UI.Teacher_classlist_dashboard;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -106,8 +108,18 @@ public class User {
                 }
                 loggedInUser = this;
 
-                // Redirect to Student Dashboard
-                // Add your code to redirect students here
+                /// Check if the student is enrolled in any class
+                if (this.isEnrolledInClass()) {
+                    // Redirect to Student Dashboard if enrolled
+                    JOptionPane.showMessageDialog(null, "You are already enrolled in a class. Redirecting to Student Dashboard.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    new StudentDashboard().setVisible(true);  // Redirect to the Student Dashboard
+                } else {
+                    // Redirect to Join Class Form if not enrolled
+                    JOptionPane.showMessageDialog(null, "You are not enrolled in any class. Redirecting to Join Class Form.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    new Join_Class_form().setVisible(true);  // Redirect to Join Class Form
+                }
+
+                
 
                 return true;
             }
@@ -123,9 +135,30 @@ public class User {
 
 
 
+// Method to check if the student is enrolled in any class
+public boolean isEnrolledInClass() {
+    if (this.studentId == 0) {
+        return false; // No studentId available
+    }
+
+    String sql = "SELECT COUNT(*) FROM enrollment WHERE Student_ID = ?"; // Check enrollment table
+    boolean isEnrolled = false;
+
+    try (PreparedStatement pstmt = konek.prepareStatement(sql)) {
+        pstmt.setInt(1, this.studentId); // Pass studentId to check enrollment
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next() && rs.getInt(1) > 0) {
+            isEnrolled = true; // The student is enrolled in at least one class
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error checking enrollment: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    return isEnrolled;
+}
 
     // Method to check if the teacher has a classroom
-    // Method to check if the teacher has created a classroom using teacherId
 public boolean hasCreatedClassroom() {
     if (this.teacherId == 0) {
         return false; // No teacherId available
@@ -161,7 +194,7 @@ public boolean hasCreatedClassroom() {
         try (PreparedStatement pstmt = konek.prepareStatement(sql)) {
             pstmt.setString(1, name);
             pstmt.setString(2, email);
-            pstmt.setString(3, password); // Hash the password before storing if needed
+            pstmt.setString(3, password); 
             pstmt.setString(4, role);
 
             pstmt.executeUpdate();

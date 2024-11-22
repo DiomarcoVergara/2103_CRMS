@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 public class Student {
-
+        
     // Database connection utility
     private Connection connectDatabase() {
         DBConnect dbcon = new DBConnect();

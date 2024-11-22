@@ -1,5 +1,4 @@
 package Main;
-import DB.DatabaseConnector;
 import UI.Log_in;
 import UI.Sign_up;
 

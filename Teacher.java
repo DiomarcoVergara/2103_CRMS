@@ -25,9 +25,7 @@ public class Teacher {
         return name;
     }
 
-    /**
-     * Fetch the subject code from the database based on the subject name.
-     */
+    
     public String getSubjectCode(String subjectName) {
         String subjectCode = null;
         String query = "SELECT Subject_Code FROM subject WHERE Subject_Name = ?";
@@ -48,9 +46,9 @@ public class Teacher {
         return subjectCode;
     }
 
-    /**
-     * Save class details to the database.
-     */
+    
+     // Save class details to the database.
+     
     public boolean createClass(String className, String section, String subjectName, String room) {
         String subjectCode = getSubjectCode(subjectName);
 
