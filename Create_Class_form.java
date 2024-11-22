@@ -5,6 +5,7 @@
 package UI;
 import Classes.Teacher;
 import Classes.User;
+import DB.DBConnect;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,20 +19,34 @@ import javax.swing.JOptionPane;
 public class Create_Class_form extends javax.swing.JFrame {
       private int loggedInTeacherId; // ID of the currently logged-in teacher
     private Connection connection;
+     private int teacherId;  
+     private Connection konek;
+     private User currentUser;
+
+    
+   
     /**
      * Creates new form Home
      */
     public Create_Class_form() {
-         initComponents();
-    // Kunin ang teacher ID mula sa naka-log in na user
-    User currentUser = User.getLoggedInUser();
-    if (currentUser != null && "Teacher".equalsIgnoreCase(currentUser.getRole())) {
-        this.loggedInTeacherId = currentUser.getTeacherId(); // Store logged-in teacher's ID
+    initComponents();
+    
+    // Retrieve the logged-in user
+    this.currentUser = User.getLoggedInUser();
+    
+    if (this.currentUser != null && "Teacher".equalsIgnoreCase(this.currentUser.getRole())) {
+        this.loggedInTeacherId = this.currentUser.getTeacherId(); // Store the teacher's ID
     } else {
-        JOptionPane.showMessageDialog(this, "Unauthorized access. Only teachers can create classes.", "Error", JOptionPane.ERROR_MESSAGE);
-        this.dispose(); // Close the form if not authorized
+        // Show error message and close the form
+        JOptionPane.showMessageDialog(this, 
+                "Unauthorized access. Only teachers can create classes.", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        this.dispose(); // Close the form
     }
-    }
+}
+
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -229,14 +244,21 @@ public class Create_Class_form extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
-        // Close the LoginFrame (assuming this frame is named `Log_in`)
-    this.dispose();
-
-    // Open the SignupFrame (assuming the sign-up frame class is `Sign_up`)
-    Teacher_dashboard tcDashFrame = new Teacher_dashboard();
-    tcDashFrame.setVisible(true);
+      if (this.currentUser != null && this.currentUser.hasCreatedClassroom()) {
+        // Redirect to teacher's class list
+        Teacher_classlist_dashboard tcl = new Teacher_classlist_dashboard();
+        tcl.setVisible(true);
+        this.dispose(); // Close the current window
+    } else {
+        // Redirect to teacher's dashboard
+        Teacher_dashboard td = new Teacher_dashboard();
+        td.setVisible(true);
+        this.dispose(); // Close the current window
+    }
+    
     }//GEN-LAST:event_CancelButtonActionPerformed
 
     private void RoomtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoomtxtActionPerformed
