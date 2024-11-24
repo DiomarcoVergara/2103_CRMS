@@ -20,19 +20,19 @@ public class Classwork_Status extends javax.swing.JFrame {
     private int classworkId;
     private int classId;
 
-    // Constructor to initialize with the classworkId
+   
     public Classwork_Status(int classworkId) {
         initComponents();
         this.classworkId = classworkId;
         dbcon = new DBConnect();
         konek = dbcon.getConnection();
-        fetchData(classworkId);  // Fetch classwork details
+        fetchData(classworkId); 
     }
 
-    // Method to fetch classwork details from the database
+   
     private void fetchData(int classworkId) {
     try {
-        // Query para makuha ang Classwork Details
+        
         String classworkQuery = "SELECT Classwork_Name, Classwork_Instruction, Class_ID FROM classwork WHERE Classwork_ID = ?";
         try (PreparedStatement pstmt = konek.prepareStatement(classworkQuery)) {
             pstmt.setInt(1, classworkId);
@@ -40,42 +40,42 @@ public class Classwork_Status extends javax.swing.JFrame {
             if (rs.next()) {
                 TitleTextField.setText(rs.getString("Classwork_Name"));
                 ClassInstructionTextArea.setText(rs.getString("Classwork_Instruction"));
-                classId = rs.getInt("Class_ID"); // I-store ang Class_ID
+                classId = rs.getInt("Class_ID"); 
             }
         }
 
         int totalStudents = 0;
         int totalSubmissions = 0;
 
-        // Query para sa bilang ng estudyante mula sa enrollment table
+
         String studentCountQuery = "SELECT COUNT(*) AS TotalStudents FROM enrollment WHERE Class_ID = ?";
         try (PreparedStatement pstmt2 = konek.prepareStatement(studentCountQuery)) {
             pstmt2.setInt(1, classId);
             ResultSet rs2 = pstmt2.executeQuery();
             if (rs2.next()) {
-                totalStudents = rs2.getInt("TotalStudents"); // I-store ang kabuuang bilang ng estudyante
+                totalStudents = rs2.getInt("TotalStudents"); 
             }
         }
 
-        // Query para sa bilang ng submissions mula sa submission table
+
         String submissionsQuery = "SELECT COUNT(*) AS TotalSubmissions FROM submission WHERE Classwork_ID = ?";
         try (PreparedStatement pstmt3 = konek.prepareStatement(submissionsQuery)) {
             pstmt3.setInt(1, classworkId);
             ResultSet rs3 = pstmt3.executeQuery();
             if (rs3.next()) {
-                totalSubmissions = rs3.getInt("TotalSubmissions"); // I-store ang bilang ng submissions
+                totalSubmissions = rs3.getInt("TotalSubmissions"); 
                 TurnIntxt.setText(String.valueOf(totalSubmissions));
             } else {
                 TurnIntxt.setText("0");
             }
         }
 
-        // Compute ang natitirang hindi pa nakakapasa at i-display sa Assigned field
+       
         int notTurnedIn = totalStudents - totalSubmissions;
         if (notTurnedIn < 0) {
-            notTurnedIn = 0; // Safety net kung sakaling may error
+            notTurnedIn = 0; 
         }
-        AssignStudenttxt.setText(String.valueOf(notTurnedIn)); // Update ang field para ipakita ang natitirang hindi pa nakakapasa
+        AssignStudenttxt.setText(String.valueOf(notTurnedIn)); 
 
     } catch (SQLException e) {
         e.printStackTrace();
