@@ -256,9 +256,10 @@ public class Create_Class_form extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
+        int loggedInTeacherId = User.getLoggedInUser().getTeacherId();
 
-    // Use the Teacher class to create the class
-    Teacher teacher = new Teacher(loggedInTeacherId, "Teacher Name"); // 
+            // Create teacher object with actual name (if available, fetch it from User or login info)
+            Teacher teacher = new Teacher(loggedInTeacherId, "Teacher Name"); 
     if (teacher.createClass(className, section, subjectName, room)) {
         JOptionPane.showMessageDialog(this, "Class created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
@@ -272,7 +273,7 @@ public class Create_Class_form extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Teacher_dashboard().setVisible(true);
+                new Teacher_dashboard().setVisible(true);   
             }
         });
     

@@ -214,6 +214,9 @@ public class Join_Class_form extends javax.swing.JFrame {
             boolean success = currentStudent.joinClass(classCode);
 
             if (success) {
+                StudentDashboard studentDashboard = new StudentDashboard();
+                studentDashboard.setVisible(true);
+                this.dispose();
                 JOptionPane.showMessageDialog(this, "Successfully joined the class!", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid class code or already joined!", "Error", JOptionPane.ERROR_MESSAGE);

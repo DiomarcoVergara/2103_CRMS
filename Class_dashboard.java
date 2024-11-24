@@ -1,6 +1,7 @@
 
 package UI;
 
+
 import Classes.User;
 import DB.DBConnect;
 import java.sql.Connection;
@@ -11,9 +12,14 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Class_dashboard extends javax.swing.JFrame {
-       private int classId;
+      private int classId;
     private String className;
     private int teacherId;
+
+    // Private constructor to prevent creating multiple instances
+    public Class_dashboard() {
+        initComponents();
+    }
 
     public Class_dashboard(int classId, String className, int teacherId) {
         this.classId = classId;
@@ -27,11 +33,15 @@ public class Class_dashboard extends javax.swing.JFrame {
         populateClassDetails();
         loadAnnouncements();
         loadStudents(); 
+        loadAssignments(); 
+    }
+    public int getClassId() {
+        return classId;
     }
 
 
 
-    private void populateClassDetails() {
+    public void populateClassDetails() {
     // Set class ID
     ClassIDtxtpane.setText(String.valueOf(classId));
 
@@ -62,9 +72,7 @@ public class Class_dashboard extends javax.swing.JFrame {
     /**
      * Creates new form Class_dashboard
      */
-    public Class_dashboard() {
-        initComponents();
-    }
+   
 
     
     @SuppressWarnings("unchecked")
@@ -89,6 +97,12 @@ public class Class_dashboard extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         List_of_students_Table = new javax.swing.JTable();
         RemovesStudentButton = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        ClassWorkTable = new javax.swing.JTable();
+        CreateAssignmentButton = new javax.swing.JButton();
+        DeleteClassworkButton = new javax.swing.JButton();
+        OpenAssButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         ViewAllClassesButton = new javax.swing.JButton();
 
@@ -206,17 +220,17 @@ public class Class_dashboard extends javax.swing.JFrame {
 
         List_of_students_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Student Name"
+                "Student Name", "Student ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -256,6 +270,80 @@ public class Class_dashboard extends javax.swing.JFrame {
         );
 
         ClassHomePane.addTab("PEOPLE", jPanel4);
+
+        ClassWorkTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Classwork ID", "Title", "Due Date"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(ClassWorkTable);
+
+        CreateAssignmentButton.setText("+ Create");
+        CreateAssignmentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreateAssignmentButtonActionPerformed(evt);
+            }
+        });
+
+        DeleteClassworkButton.setText("Delete");
+        DeleteClassworkButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteClassworkButtonActionPerformed(evt);
+            }
+        });
+
+        OpenAssButton.setText("Open");
+        OpenAssButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenAssButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CreateAssignmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addComponent(DeleteClassworkButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(OpenAssButton))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(CreateAssignmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DeleteClassworkButton)
+                    .addComponent(OpenAssButton))
+                .addGap(14, 14, 14))
+        );
+
+        ClassHomePane.addTab("CLASSWORK", jPanel5);
 
         jPanel2.setBackground(new java.awt.Color(126, 217, 87));
 
@@ -356,7 +444,7 @@ public class Class_dashboard extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_PostAnnouncementButtonActionPerformed
-    private void loadAnnouncements() {
+    public void loadAnnouncements() {
     Display_All_Announcements_txtArea.setText(""); // Clear previous content
 
     try (Connection conn = new DBConnect().getConnection()) {
@@ -394,38 +482,66 @@ public class Class_dashboard extends javax.swing.JFrame {
     }
 }
 
-private void loadStudents() {
-    // Clear previous data from the table
-    DefaultTableModel model = (DefaultTableModel) List_of_students_Table.getModel();
-    model.setRowCount(0); 
+    public void loadStudents() {
+        // Clear previous data from the table
+        DefaultTableModel model = (DefaultTableModel) List_of_students_Table.getModel();
+        model.setRowCount(0); 
 
-    try (Connection conn = new DBConnect().getConnection()) {
-        String sql = "SELECT s.Name, s.Student_ID " +
-                     "FROM student s " +
-                     "JOIN enrollment ce ON s.Student_ID = ce.Student_ID " +
-                     "WHERE ce.Class_ID = ?"; // Query to get students for the current class
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setInt(1, classId);  // Set the class ID for the query
+        try (Connection conn = new DBConnect().getConnection()) {
+            String sql = "SELECT s.Name, s.Student_ID " +
+                         "FROM student s " +
+                         "JOIN enrollment ce ON s.Student_ID = ce.Student_ID " +
+                         "WHERE ce.Class_ID = ?"; // Query to get students for the current class
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, classId);  // Set the class ID for the query
 
-        ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            String studentName = rs.getString("Name");
-            int studentId = rs.getInt("Student_ID");
-            // Add the student details to the table
-            model.addRow(new Object[]{studentName, studentId});
+            while (rs.next()) {
+                String studentName = rs.getString("Name");
+                int studentId = rs.getInt("Student_ID");
+                // Add the student details to the table
+                model.addRow(new Object[]{studentName, studentId});
+            }
+
+
+            if (model.getRowCount() == 0) {
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error loading students.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-
-        if (model.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "No students found for this class.", "Information", JOptionPane.INFORMATION_MESSAGE);
-        }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error loading students.", "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
+    public void loadAssignments() {
+        DefaultTableModel tableModel = (DefaultTableModel) ClassWorkTable.getModel();
+        // Clear any existing data
+        tableModel.setRowCount(0);
+
+        try {
+            // Query to get assignments for the given class ID
+            String query = "SELECT Classwork_ID, Classwork_Name, Due_Date FROM classwork WHERE Class_ID = ?";
+            DBConnect dbcon = new DBConnect();
+            Connection konek = dbcon.getConnection();
+            PreparedStatement stmt = konek.prepareStatement(query);
+            stmt.setInt(1, classId); // Set classId in the query
+            ResultSet rs = stmt.executeQuery();
+
+            // Process the result set and add rows to the table
+            while (rs.next()) {
+                int classworkId = rs.getInt("Classwork_ID");
+                String title = rs.getString("Classwork_Name");
+                String dueDate = rs.getString("Due_Date");
+
+                // Add a new row with the data to the table model
+                tableModel.addRow(new Object[] { classworkId, title, dueDate });
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading assignments.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
 
 
@@ -445,8 +561,66 @@ private void loadStudents() {
 
    
     private void RemovesStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemovesStudentButtonActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = List_of_students_Table.getSelectedRow();
+    if (selectedRow != -1) {
+        DefaultTableModel model = (DefaultTableModel) List_of_students_Table.getModel();
+        int studentId = (int) model.getValueAt(selectedRow, 1); // Assuming ID is the second column
+
+        int confirm = JOptionPane.showConfirmDialog(this, 
+                "Are you sure you want to remove this student?", 
+                "Confirm Removal", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try (Connection conn = new DBConnect().getConnection()) {
+                String sql = "DELETE FROM enrollment WHERE Student_ID = ? AND Class_ID = ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, studentId);
+                stmt.setInt(2, classId);
+                int rowsAffected = stmt.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    model.removeRow(selectedRow); // Remove from table
+                    JOptionPane.showMessageDialog(this, "Student removed successfully.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to remove student.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error removing student.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Please select a student to remove.", "Error", JOptionPane.WARNING_MESSAGE);
+    }
     }//GEN-LAST:event_RemovesStudentButtonActionPerformed
+
+    private void CreateAssignmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateAssignmentButtonActionPerformed
+        this.dispose();
+    Classwork_form classworkForm = new Classwork_form(this.classId); // Pass the classId
+    classworkForm.setVisible(true);
+    
+    }//GEN-LAST:event_CreateAssignmentButtonActionPerformed
+
+    private void DeleteClassworkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteClassworkButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DeleteClassworkButtonActionPerformed
+
+      
+
+    private void OpenAssButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenAssButtonActionPerformed
+       int selectedRow = ClassWorkTable.getSelectedRow();
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Pumili ng classwork sa table.", "Warning", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    // Kunin ang Classwork_ID
+    int classworkId = (int) ClassWorkTable.getValueAt(selectedRow, 0); // Assuming Classwork_ID is in column 0
+
+    // Open Classwork_Status frame
+    Classwork_Status statusFrame = new Classwork_Status(classworkId);
+    statusFrame.setVisible(true);
+    }//GEN-LAST:event_OpenAssButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -465,9 +639,13 @@ private void loadStudents() {
     private javax.swing.JTabbedPane ClassHomePane;
     private javax.swing.JTextPane ClassIDtxtpane;
     private javax.swing.JPanel ClassName_SubjectCodePane;
+    private javax.swing.JTable ClassWorkTable;
+    private javax.swing.JButton CreateAssignmentButton;
+    private javax.swing.JButton DeleteClassworkButton;
     private javax.swing.JTextArea Display_All_Announcements_txtArea;
     private javax.swing.JTable List_of_students_Table;
     private javax.swing.JTextArea Name_and_Subject_code_txt;
+    private javax.swing.JButton OpenAssButton;
     private javax.swing.JButton PostAnnouncementButton;
     private javax.swing.JButton RemovesStudentButton;
     private javax.swing.JButton ViewAllClassesButton;
@@ -477,9 +655,11 @@ private void loadStudents() {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     // End of variables declaration//GEN-END:variables
 }
