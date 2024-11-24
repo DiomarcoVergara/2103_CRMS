@@ -34,10 +34,9 @@ public class StudentDashboard extends javax.swing.JFrame {
     // Ensure the classTable model is correctly linked
     DefaultTableModel model = (DefaultTableModel) classTable.getModel();
 
-    // Clear any existing rows
+  
     model.setRowCount(0);
 
-    // Validate database connection and student ID
     if (konek == null || studentId == 0) {
         JOptionPane.showMessageDialog(this, 
             "Unable to load classes. Database connection or student ID is invalid.", 
@@ -231,9 +230,9 @@ public class StudentDashboard extends javax.swing.JFrame {
     int selectedRow = classTable.getSelectedRow();
     if (selectedRow != -1) {
         // Fetch class details from the table
-        String className = (String) classTable.getValueAt(selectedRow, 1); // Column index 1 for Class Name
-        String subjectCode = (String) classTable.getValueAt(selectedRow, 2); // Column index 2 for Subject Code
-        int classId = (int) classTable.getValueAt(selectedRow, 0); // Assuming column index 0 contains classId
+        String className = (String) classTable.getValueAt(selectedRow, 1); 
+        String subjectCode = (String) classTable.getValueAt(selectedRow, 2); 
+        int classId = (int) classTable.getValueAt(selectedRow, 0);
 
         System.out.println("Opening Class: " + className + " (Subject Code: " + subjectCode + ", Class ID: " + classId + ")");
 

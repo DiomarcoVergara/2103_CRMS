@@ -29,16 +29,16 @@ public class Join_dashboard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(136, 136, 136)
+                .addGap(143, 143, 143)
                 .addComponent(JoinNowButton)
-                .addContainerGap(183, Short.MAX_VALUE))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(123, 123, 123)
+                .addGap(120, 120, 120)
                 .addComponent(JoinNowButton)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
 
         pack();
